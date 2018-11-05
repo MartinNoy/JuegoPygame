@@ -3,10 +3,13 @@ from pygame.locals import *
 import enemigo
 import naveEspacial
 import proyectil
+from time import sleep
+
 #variables globales
+reloj = pygame.time.Clock()
 ancho_ventana = 900
 alto_ventana = 480
-
+leftsp, rightsp = False,False
 
 def SpaceInvader():
     pygame.init()
@@ -19,6 +22,8 @@ def SpaceInvader():
     
     enemigo1 = enemigo.naveEnemiga()
     
+    enemigo2 = enemigo.naveEnemiga()
+    
     demoproyectil = proyectil.proyectil(456, 30)
     
     enJuego = True
@@ -26,8 +31,7 @@ def SpaceInvader():
     
     while True:
         
-        jugador.movimiento()
-        
+        jugador.movimiento() 
         demoproyectil.trayectoria()
         
         for event in pygame.event.get():
@@ -39,9 +43,11 @@ def SpaceInvader():
             if enJuego== True:
                 if event.type == pygame.KEYDOWN:
                     if event.key == K_LEFT:
+                        leftsp = True
                         jugador.rect.left -= jugador.velocidad
                     
                     elif event.key == K_RIGHT:
+                        rightsp = True
                         jugador.rect.right += jugador.velocidad 
                         
                     elif event.key == K_z:
@@ -54,6 +60,8 @@ def SpaceInvader():
         
         jugador.dibujar(ventana)
         
+        enemigo1.movimiento()
+                
         enemigo1.dibujar(ventana)
         
         if len(jugador.listaDisparo)>0:
@@ -64,7 +72,7 @@ def SpaceInvader():
                 if x.rect.top < -10:
                     jugador.listaDisparo.remove(x)
                     
-        
+        reloj.tick(30)
         pygame.display.update()
         
 SpaceInvader()

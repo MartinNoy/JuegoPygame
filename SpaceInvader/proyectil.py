@@ -11,7 +11,7 @@ class proyectil(pygame.sprite.Sprite):
         
         self.rect = self.imagenProyectil.get_rect()
         
-        self.velocidadDisparo = 5
+        self.velocidadDisparo = 10
         
         self.rect.top = posy
         self.rect.left = posx
